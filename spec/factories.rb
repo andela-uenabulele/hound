@@ -24,6 +24,22 @@ FactoryGirl.define do
     linter_name "ruby"
   end
 
+  factory :pricing do
+    id "tier1"
+    price 49
+    range 1..4
+    title "Chihuahua"
+
+    trait(:tier2) do
+      id "tier2"
+      price 99
+      range 5..10
+      title "Labrador"
+    end
+
+    initialize_with { new(id: id, price: price, range: range, title: title) }
+  end
+
   factory :repo do
     trait(:active) { active true }
     trait(:inactive) { active false }
@@ -40,6 +56,7 @@ FactoryGirl.define do
   end
 
   factory :user do
+    trait(:stripe) { stripe_customer_id "cus_2e3fqARc1uHtCv" }
     username { generate(:github_name) }
   end
 
